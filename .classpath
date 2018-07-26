@@ -11,5 +11,10 @@
 	<classpathentry kind="lib" path="dist/lib/httpmime-4.0.3.jar"/>
 	<classpathentry kind="lib" path="dist/lib/swing-layout-1.0.4.jar"/>
 	<classpathentry kind="lib" path="dist/MajBot.jar"/>
+	<classpathentry kind="lib" path="/home/edicarlo/dev/workspace/lib/netty-4.1.8.Final/jar/all-in-one/netty-all-4.1.8.Final.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/home/edicarlo/dev/workspace/lib/netty-4.1.8.Final/javadoc/netty-all-4.1.8.Final-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
