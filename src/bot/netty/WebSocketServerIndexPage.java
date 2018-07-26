@@ -43,7 +43,7 @@ public final class WebSocketServerIndexPage {
                 "  };" + NEWLINE +
                 "  socket.onopen = function(event) {" + NEWLINE +
                 "    var ta = document.getElementById('responseText');" + NEWLINE +
-                "    ta.value = \"Web Socket opened!\";" + NEWLINE +
+                "    ta.value = \"Hello, My name is MajBot, what is your name?\";" + NEWLINE +
                 "  };" + NEWLINE +
                 "  socket.onclose = function(event) {" + NEWLINE +
                 "    var ta = document.getElementById('responseText');" + NEWLINE +

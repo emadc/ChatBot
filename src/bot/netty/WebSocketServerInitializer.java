@@ -15,6 +15,8 @@
  */
 package bot.netty;
 
+import bot.Bot;
+import bot.DataParser;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -38,6 +40,10 @@ public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel
 
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
+    	
+    	DataParser dp = new DataParser();
+    	Bot bot = new Bot("0", dp);
+    	
         ChannelPipeline pipeline = ch.pipeline();
         if (sslCtx != null) {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
@@ -47,6 +53,6 @@ public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel
         pipeline.addLast(new WebSocketServerCompressionHandler());
         pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
         pipeline.addLast(new WebSocketIndexPageHandler(WEBSOCKET_PATH));
-        pipeline.addLast(new WebSocketFrameHandler());
+        pipeline.addLast(new WebSocketFrameHandler(bot));
     }
 }

@@ -27,15 +27,17 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
  */
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
-	private DataParser dp = new DataParser();
-	private Bot bot = null;
+	private Bot bot ;
+	
+	public WebSocketFrameHandler(Bot bot) {
+		this.bot=bot;
+	}
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
 		super.channelActive(ctx);
 		System.out.println("channelActive !!!");
-		bot = new Bot("0", dp);
 		ctx.channel().writeAndFlush(new TextWebSocketFrame("BOT: "+bot.getMessage()));
 	}
 	
@@ -46,8 +48,10 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
         if (frame instanceof TextWebSocketFrame) {
             // Send the uppercase string back.
             String request = ((TextWebSocketFrame) frame).text();
-            System.out.println(ctx.channel());
-            System.out.println(request);
+//            System.out.println(ctx.channel());
+//            System.out.println(request);
+            
+            ctx.channel().writeAndFlush(new TextWebSocketFrame("YOU: "+request+"\n"));
             
             // send the message to the bot and get the bot response
             String response = bot.send(request);
@@ -58,10 +62,7 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
             }
 
             // display new state message
-            ctx.channel().writeAndFlush(new TextWebSocketFrame("BOT: "+bot.getMessage()));
-
-            // clear the message textbox
-            ctx.channel().writeAndFlush(new TextWebSocketFrame("\n"));
+            ctx.channel().writeAndFlush(new TextWebSocketFrame("BOT: "+bot.getMessage()+"\n"));
             
         } else {
             String message = "unsupported frame type: " + frame.getClass().getName();
